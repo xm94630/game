@@ -1,12 +1,12 @@
 <template>
   <div class="bg10">
-    交大群侠传2-手机版
+    游戏开场
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'begin',
   props: {
     msg: String
   }
@@ -15,7 +15,4 @@ export default {
 
 
 <style scoped>
-.game{
-  color: #333;
-}
 </style>
