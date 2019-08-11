@@ -22,5 +22,6 @@ export default {
   background: #f3f3f3;
   margin:0 auto;
   font-size: 1.6em;
+  overflow: hidden;
 }
 </style>

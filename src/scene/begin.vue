@@ -18,7 +18,11 @@ export default {
 <style scoped lang="scss">
 .bg10{
   .xxx{
+    border:solid 1px red;
     color:red;
+    text-align: center;
+    transform:scale(2,3);
+    margin-top:10vh;
   }
 }
 </style>
