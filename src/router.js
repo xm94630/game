@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import scene from './scene/begin.vue';
+import scene from '@/src/scene/begin.vue';
 Vue.use(VueRouter)
 
 const router = new VueRouter({
