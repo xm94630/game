@@ -1,17 +1,17 @@
 <template>
-  <div class="box">
-    <HelloWord :width="100" :height="100">
-      <div style="width:100%;height:100%;background:red;">123</div>
-    </HelloWord>
+  <div class="page">
+    <zoomBox :width="375" :height="600">
+      画布
+    </zoomBox>
   </div>
 </template>
 
 <script>
-import HelloWord from '@/src/components/HelloWorld.vue';
+import zoomBox from '@/src/components/zoomBox.vue';
 export default {
   name: 'begin',
   components: {
-    HelloWord
+    zoomBox
   },
   props: {
     msg: String,
@@ -25,12 +25,9 @@ export default {
 
 
 <style scoped lang="scss">
-.box{
+.page{
   background: #999;
-  width:300px;
-  height:400px;
-  position:absolute;
-  top:50px;
-  left:100px;
+  width:100vw;
+  height:100vh;
 }
 </style>

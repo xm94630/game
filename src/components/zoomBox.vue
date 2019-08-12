@@ -1,12 +1,12 @@
 <template>
-  <div class="miniBox" :style="{width:this.width+'px',height:this.height+'px'}">
+  <div class="zoomBox" :style="{width:this.width+'px',height:this.height+'px'}">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'zoomBox',
   props: {
     width: Number,
     height: Number,
@@ -35,17 +35,17 @@ export default {
     }
   },
   mounted(){
-    this.adjustShow(this.$el,this.$parent.$el,3);
+    this.adjustShow(this.$el,this.$parent.$el);
   }
 }
 </script>
 
 <style scoped>
-.miniBox{
-  position: absolute;
-  box-sizing: border-box;
+.zoomBox{
   position: relative;
+  box-sizing: border-box;
   transform-origin:0 0;
+  background: #f3f3f3;
 }
 
 </style>
