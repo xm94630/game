@@ -1,6 +1,8 @@
 <template>
   <div class="box">
-    <HelloWord :width="100" :height="200"/>
+    <HelloWord :width="100" :height="100">
+      <div style="width:100%;height:100%;background:red;">123</div>
+    </HelloWord>
   </div>
 </template>
 

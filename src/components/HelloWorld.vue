@@ -1,6 +1,6 @@
 <template>
-  <div class="miniBox">
-    123
+  <div class="miniBox" :style="{width:this.width+'px',height:this.height+'px'}">
+    <slot></slot>
   </div>
 </template>
 
@@ -11,37 +11,28 @@ export default {
     width: Number,
     height: Number,
   },
+  data:function(){
+    return{
+    }
+  },
   methods:{
-    adjustShow(thisDOM,parentDOM,type){
-
-      let show_width = parentDOM.offsetWidth;
-      let show_height = parentDOM.offsetHeight;
+    adjustShow(thisDOM,parentDOM){
+      let parentWidth = parentDOM.offsetWidth;
+      let parentHeight = parentDOM.offsetHeight;
+      let parentScale = parentWidth / parentHeight;
       let w = this.width;
       let h = this.height;
-
-
-      const scaleW = show_width / w;
-      const scaleH = show_height / h;
-      if(type===1){
-        thisDOM.style.transform = 'scale('+scaleW+','+scaleH+')';
-        thisDOM.style.top = (show_height - h)/2 + "px";
-        if(show_width<w){
-          thisDOM.style.left = (show_width - w)/2 + "px";
-        }
-      }else if(type===2){
-        thisDOM.style.transform = 'scale('+scaleW+','+scaleW+')';
-        thisDOM.style.top = (h*scaleW - h)/2 + "px";
-        if(show_width<w){
-          thisDOM.style.left = (show_width - w)/2 + "px";
-        }
-      }else if(type===3){
-        thisDOM.style.transform = 'scale('+scaleH+','+scaleH+')';
-        thisDOM.style.top = (show_height - h)/2 + "px";
-        if(show_width<w){
-          thisDOM.style.left = (show_width - w)/2 + "px";
-        }
+      let scale = w / h;
+      if(parentScale>scale){
+        let n = parentHeight/h;
+        thisDOM.style.transform = 'scale('+n+','+n+')';
+        thisDOM.style.left = (parentWidth-w*n)/2 + 'px';
+      }else{
+        let n = parentWidth/w;
+        thisDOM.style.transform = 'scale('+n+','+n+')';
+        thisDOM.style.top = (parentHeight-h*n)/2 + 'px';
       }
-    },
+    }
   },
   mounted(){
     this.adjustShow(this.$el,this.$parent.$el,3);
@@ -49,13 +40,12 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .miniBox{
-  width: 100px;
-  height:200px;
-  background: #666;
-  color:red;
+  position: absolute;
+  box-sizing: border-box;
   position: relative;
+  transform-origin:0 0;
 }
+
 </style>
