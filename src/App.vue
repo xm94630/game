@@ -12,7 +12,7 @@ export default {
 }
 
 //375*812 iphone
-//375*600 游戏区域设定
+//375*600 区域设定
 </script>
 
 <style>

@@ -1,28 +1,34 @@
 <template>
-  <div class="bg10">
-    游戏开场
-    <div class="xxx">测试</div>
+  <div class="box">
+    <HelloWord :width="100" :height="200"/>
   </div>
 </template>
 
 <script>
+import HelloWord from '@/src/components/HelloWorld.vue';
 export default {
   name: 'begin',
+  components: {
+    HelloWord
+  },
   props: {
-    msg: String
+    msg: String,
+    width: Number,
+    height: Number,
+  },
+  mounted(){
   }
 }
 </script>
 
 
 <style scoped lang="scss">
-.bg10{
-  .xxx{
-    border:solid 1px red;
-    color:red;
-    text-align: center;
-    transform:scale(2,3);
-    margin-top:10vh;
-  }
+.box{
+  background: #999;
+  width:300px;
+  height:400px;
+  position:absolute;
+  top:50px;
+  left:100px;
 }
 </style>

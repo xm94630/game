@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes:[
     {path:'/',redirect: '/index'},
-    {path:'/index',component:scene},
+    {path:'/index',component:scene,props:{width:100,height:100}},
     {
       path:'/scene1',
       component:scene,
