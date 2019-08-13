@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <zoomBox :width="375" :height="600">
+    <zoomBox :width="375" :height="600" bgColor="#f3f3f3">
       画布
     </zoomBox>
   </div>
@@ -27,7 +27,7 @@ export default {
 <style scoped lang="scss">
 .page{
   background: #999;
-  width:100vw;
-  height:100vh;
+  width:100%;
+  height:100%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="zoomBox" :style="{width:this.width+'px',height:this.height+'px'}">
+  <div class="zoomBox" :style="{width:this.width+'px',height:this.height+'px',background:this.bgColor}">
     <slot></slot>
   </div>
 </template>
@@ -10,6 +10,7 @@ export default {
   props: {
     width: Number,
     height: Number,
+    bgColor:String,
   },
   data:function(){
     return{
@@ -45,7 +46,6 @@ export default {
   position: relative;
   box-sizing: border-box;
   transform-origin:0 0;
-  background: #f3f3f3;
 }
 
 </style>
