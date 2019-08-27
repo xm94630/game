@@ -1,17 +1,19 @@
 <template>
   <div class="page">
     <zoomBox :width="375" :height="600" bgColor="#f3f3f3">
-      画布
+      <fightingBox />
     </zoomBox>
   </div>
 </template>
 
 <script>
 import zoomBox from '@/src/components/zoomBox.vue';
+import fightingBox from '@/src/components/fightingBox.vue';
 export default {
   name: 'begin',
   components: {
-    zoomBox
+    zoomBox,
+    fightingBox,
   },
   props: {
     msg: String,
