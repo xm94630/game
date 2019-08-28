@@ -3,7 +3,7 @@
     <div class="blueBox">
       <template v-for="one in players.blue">
         <div :key="one.id" class="xxx" v-show="one.alive">
-          <div class="people"></div>
+          <div class="people">{{one.lv}}</div>
           <hpBar class="hpBarStyle" :hp="one.hp" background="#60c016" />
         </div>
       </template>
@@ -11,7 +11,7 @@
     <div class="redBox">
       <template v-for="one in players.red">
         <div :key="one.id" class="xxx" v-show="one.alive">
-          <div class="people"></div>
+          <div class="people">{{one.lv}}</div>
           <hpBar class="hpBarStyle" :hp="one.hp" background="#fd3633" />
         </div>
       </template>
@@ -95,30 +95,38 @@ export default {
     },
 
     // 一个人攻击一次
-    xxx(people){
+    oneAttack(people){
       let promise = new Promise((resolve)=>{
-        setTimeout(()=>{
-          if(people.type=="blue"){
-            let blueOne = people;
-            let alive =this.players.red.filter((one)=>{
-              return one.alive == true;
-            })
-            let redOne = alive[this.getRandomValue(alive.length-1)];
-            this.yyy(blueOne,redOne);
-          }else{
-            let redOne = people;
-            let alive =this.players.blue.filter((one)=>{
-              return one.alive == true;
-            })
-            let blueOne = alive[this.getRandomValue(alive.length-1)];
-            this.yyy(redOne,blueOne);
-          }
-          resolve('ok')
-        },300)
+        //这里还是有必要判断下当前的角色是否还存活，因为一个回合前都是活的，但是战斗之后可能有阵亡的，阵亡的就不能再打了。
+        if(people.alive){
+          setTimeout(()=>{
+            if(people.type=="blue"){
+              let blueOne = people;
+              //从存活的对手中挑出一个作为攻击目标
+              let alive =this.players.red.filter((one)=>{
+                return one.alive == true;
+              })
+              let redOne = alive[this.getRandomValue(alive.length-1)];
+              this.yyy(blueOne,redOne);
+            }else{
+              let redOne = people;
+              //从存活的对手中挑出一个作为攻击目标
+              let alive =this.players.blue.filter((one)=>{
+                return one.alive == true;
+              })
+              let blueOne = alive[this.getRandomValue(alive.length-1)];
+              this.yyy(redOne,blueOne);
+            }
+            resolve('ok1')
+          },300)
+        }else{
+          resolve('ok2')
+        }
       })
       return promise;
     },
     
+    //具体的战斗逻辑
     yyy(Attacker, Defender){
       console.log(Attacker.type+' 方发起攻击！')
       if(this.getTag(Defender.eva)){
@@ -132,12 +140,10 @@ export default {
         Defender.hp -= atk;
         if(Defender.hp<=0){
           Defender.alive = false;
-          let alive =this.players[Defender.type].filter((one)=>{
-              return one.alive == true;
-          })
-          if(alive.length===0){
-            this.finish = true;
-          }
+          
+          //用来判断战斗是否结束
+          let alive =this.players[Defender.type].filter((one)=>{return one.alive == true;})
+          if(alive.length===0){this.finish = true;}
         }
       }
     },
@@ -150,17 +156,22 @@ export default {
     //4) 对阵亡的人员进行标记，以后不会再参加战斗。
     //每局，包含5个战斗回合。一局结束之后，会询问是否继续战斗，或者撤退。
 
-
+    //战斗的入口
     async fighting(){
-      //注意concat是浅拷贝。依然保持原对象的引用
-      let list = this.players.blue.concat(this.players.red);
-      let newList = this.shuffle(list);
 
+      //一局
       for(let j=0;j<30;j++){
+
+        //注意concat是浅拷贝。依然保持原对象的引用
+        let list = this.players.blue.concat(this.players.red);
+        let newList = this.shuffle(list)
+        //过滤存活的
+        newList = newList.filter((one)=>{return one.alive == true;})
+        //一个回合
         for(let i=0;i<newList.length;i++){
           //处理一个异步的事情
           if(!this.finish){
-            await this.xxx(newList[i]);
+            await this.oneAttack(newList[i]);
           }
         }
       }

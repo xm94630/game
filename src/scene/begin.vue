@@ -29,7 +29,7 @@ export default {
       },
       enemy:{
         type:'red',
-        follower:[3,1] //表示有1个3级的、一个1级的
+        follower:[3] //表示有1个3级的、一个1级的
       },
       combatants:null, //参与战斗的人员配置
     }
