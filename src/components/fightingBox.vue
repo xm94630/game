@@ -1,10 +1,10 @@
 <template>
-  <div class="">
+  <div class="" v-if="players">
     <div class="blueBox">
       <template v-for="one in players.blue">
         <div :key="one.id" class="xxx" v-show="one.alive">
           <div class="people"></div>
-          <hpBar :hp="one.hp" background="#60c016" />
+          <hpBar class="hpBarStyle" :hp="one.hp" background="#60c016" />
         </div>
       </template>
     </div>
@@ -12,7 +12,7 @@
       <template v-for="one in players.red">
         <div :key="one.id" class="xxx" v-show="one.alive">
           <div class="people"></div>
-          <hpBar :hp="one.hp" background="#fd3633" />
+          <hpBar class="hpBarStyle" :hp="one.hp" background="#fd3633" />
         </div>
       </template>
     </div>
@@ -24,77 +24,51 @@ import hpBar from '@/src/components/hpBar.vue';
 import { setTimeout } from 'timers';
 import { Promise } from 'q';
 
+// players 参数配置
+// players:{
+//   'blue':[{
+//     id:1,
+//     lv:1,
+//     hp:100,
+//     eva:0.05,
+//     atk:5,
+//     atk_add:5,
+//     cri:0.1,
+//     type:'blue',
+//     alive:true,
+//   }],
+//   'red':[{
+//     id:4,
+//     lv:2,
+//     hp:120,
+//     eva:0.1,
+//     atk:10,
+//     atk_add:10,
+//     cri:0.55,
+//     type:'red',
+//     alive:true,
+//   }]
+// }
+
+
 export default {
   name: 'fightingBox',
   components: {
     hpBar,
   },
   props: {
+    combatants:Object
   },
   data:function(){
     return{
+      players:JSON.parse(JSON.stringify(this.combatants)),
       finish:false,
-      players:{
-        'blue':[
-          {
-            id:1,
-            lv:1,
-            hp:100,
-            eva:0.05,//躲闪
-            atk:5,
-            atk_add:5,
-            cri:0.1, //暴击
-            type:'blue',
-            alive:true,
-          },
-          {
-            id:2,
-            lv:1,
-            hp:100,
-            eva:0.05,
-            atk:5,
-            atk_add:5,
-            cri:0.1,
-            type:'blue',
-            alive:true,
-          },
-          {
-            id:3,
-            lv:1,
-            hp:100,
-            eva:0.05,
-            atk:5,
-            atk_add:5,
-            cri:0.1,
-            type:'blue',
-            alive:true,
-          },
-        ],
-        'red':[
-          {
-            id:4,
-            lv:2,
-            hp:120,
-            eva:0.1,
-            atk:10,
-            atk_add:20,
-            cri:0.55,
-            type:'red',
-            alive:true,
-          },
-          {
-            id:5,
-            lv:1,
-            hp:100,
-            eva:0.05,
-            atk:5,
-            atk_add:5,
-            cri:0.1,
-            type:'red',
-            alive:true,
-          },
-        ]
-      }
+    }
+  },
+  watch:{
+    "combatants":function(v){
+      this.players = JSON.parse(JSON.stringify(v));
+      this.fighting();
     }
   },
   methods:{
@@ -191,13 +165,13 @@ export default {
         }
       }
 
-      console.log('结束');
-
-      
+      console.log('结束');      
     }
   },
   mounted(){
-    this.fighting();
+    if(this.players){
+      this.fighting();
+    }
   }
 }
 </script>
@@ -223,5 +197,11 @@ export default {
     width:20px;
     height:20px;
   }
+}
+
+.hpBarStyle{
+  position: absolute;
+  top:0px;
+  left:0px;
 }
 </style>
