@@ -118,7 +118,7 @@ export default {
               this.yyy(redOne,blueOne);
             }
             resolve('ok1')
-          },300)
+          },150)
         }else{
           resolve('ok2')
         }
@@ -132,7 +132,7 @@ export default {
       if(this.getTag(Defender.eva)){
         console.log('miss');
       }else{
-        let atk = Attacker.atk+ this.getRandomValue(Attacker.atk_add);
+        let atk = this.getRandomValueFromRange(Attacker.atk[0],Attacker.atk[1]);
         if(this.getTag(Attacker.cri)){
           atk = atk*2;
           console.log('暴击');

@@ -25,11 +25,11 @@ export default {
     return{
       my:{
         type:'blue',
-        follower:[1,1,1] //表示有3个1级的弟子
+        follower:[2,2,2,2,1,1,5,9] //表示有3个1级的弟子
       },
       enemy:{
         type:'red',
-        follower:[3] //表示有1个3级的、一个1级的
+        follower:[4,8,4,8] //表示有1个3级的、一个1级的
       },
       combatants:null, //参与战斗的人员配置
     }
