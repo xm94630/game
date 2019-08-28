@@ -46,6 +46,7 @@ export default {
   width:20px;
   height:4px;
   background:rgba(0, 0, 0, 0.8);
+  overflow: hidden;
   .hpBarBar{
     position: absolute;
     z-index: 1002;
