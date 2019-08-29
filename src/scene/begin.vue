@@ -1,7 +1,9 @@
 <template>
   <div class="page">
     <zoomBox :width="375" :height="600" bgColor="#f3f3f3">
-      <fightingBox :combatants="combatants"/>
+      <fightingBox :combatants="combatants" ref="fightingBox" v-if="hackReset"/>
+      <div @click="clickFun">开始</div>
+      <div @click="clickFun2">重置</div>
     </zoomBox>
   </div>
 </template>
@@ -23,6 +25,7 @@ export default {
   },
   data:function(){
     return{
+      hackReset:true,
       my:{
         type:'blue',
         follower:[2,2,2,2,1,1,5,9] //表示有3个1级的弟子
@@ -35,6 +38,17 @@ export default {
     }
   },
   methods:{
+    clickFun(){
+      if(this.$refs.fightingBox.players){
+        this.$refs.fightingBox.fighting()
+      }
+    },
+    clickFun2(){
+      this.hackReset = false;
+      this.$nextTick(() => {
+        this.hackReset = true
+      })
+    },
     getPeopleConfig(myFollower,enemyFollower){
       let obj = {
         blue:[],

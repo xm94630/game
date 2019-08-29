@@ -21,7 +21,7 @@
 
 <script>
 import hpBar from '@/src/components/hpBar.vue';
-import { setTimeout } from 'timers';
+import { setTimeout,clearTimeout } from 'timers';
 import { Promise } from 'q';
 
 // players 参数配置
@@ -68,7 +68,7 @@ export default {
   watch:{
     "combatants":function(v){
       this.players = JSON.parse(JSON.stringify(v));
-      this.fighting();
+      //this.fighting();
     }
   },
   methods:{
@@ -99,7 +99,7 @@ export default {
       let promise = new Promise((resolve)=>{
         //这里还是有必要判断下当前的角色是否还存活，因为一个回合前都是活的，但是战斗之后可能有阵亡的，阵亡的就不能再打了。
         if(people.alive){
-          setTimeout(()=>{
+          this.xxx = setTimeout(()=>{
             if(people.type=="blue"){
               let blueOne = people;
               //从存活的对手中挑出一个作为攻击目标
@@ -128,6 +128,7 @@ export default {
     
     //具体的战斗逻辑
     yyy(Attacker, Defender){
+      console.log(this.xxx)
       console.log(Attacker.type+' 方发起攻击！')
       if(this.getTag(Defender.eva)){
         console.log('miss');
@@ -161,7 +162,6 @@ export default {
 
       //一局
       for(let j=0;j<30;j++){
-
         //注意concat是浅拷贝。依然保持原对象的引用
         let list = this.players.blue.concat(this.players.red);
         let newList = this.shuffle(list)
@@ -180,9 +180,13 @@ export default {
     }
   },
   mounted(){
-    if(this.players){
-      this.fighting();
-    }
+    // if(this.players){
+    //   this.fighting();
+    // }
+  },
+  beforeDestroy(){
+    console.log('终止');   
+    clearTimeout(this.xxx);
   }
 }
 </script>
