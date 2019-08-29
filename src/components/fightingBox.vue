@@ -1,5 +1,5 @@
 <template>
-  <div class="" v-if="players">
+  <div class="FBOX" v-if="players">
     <div class="blueBox">
       <template v-for="one in players.blue">
         <div :key="one.id" class="xxx" v-show="one.alive">
@@ -192,31 +192,36 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.xxx{
+.FBOX{
+  font-size: 12px;
+  .xxx{
   display: inline-block;
   width:20px;
   height:20px;
   margin-right: 25px;
   position: relative;
-}
-.blueBox{
-  .people{
-    background: #ccc;
-    width:20px;
-    height:20px;
   }
-}
-.redBox{
-  .people{
-    background: #ccc;
-    width:20px;
-    height:20px;
+  .blueBox{
+    .people{
+      background: #ccc;
+      width:20px;
+      height:20px;
+    }
   }
+  .redBox{
+    .people{
+      background: #ccc;
+      width:20px;
+      height:20px;
+    }
+  }
+
+  .hpBarStyle{
+    position: absolute;
+    top:0px;
+    left:0px;
+  }
+
 }
 
-.hpBarStyle{
-  position: absolute;
-  top:0px;
-  left:0px;
-}
 </style>

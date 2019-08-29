@@ -2,8 +2,8 @@
   <div class="page">
     <zoomBox :width="375" :height="600" bgColor="#f3f3f3">
       <fightingBox :combatants="combatants" ref="fightingBox" v-if="hackReset"/>
-      <div @click="clickFun">开始</div>
-      <div @click="clickFun2">重置</div>
+      <div @click="clickFun">start</div>
+      <div @click="clickFun2">reset</div>
     </zoomBox>
   </div>
 </template>
